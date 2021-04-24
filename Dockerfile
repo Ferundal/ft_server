@@ -10,7 +10,16 @@ RUN apt-get install php php-fpm php-mysql -y
 RUN apt-get install -y wget
 RUN apt-get install -y vim
 
-RUN wget -c https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-all-languages.tar.gz && tar -xzf phpMyAdmin-5.1.0-all-languages.tar.gz
+RUN wget -c https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-all-languages.tar.gz && \
+    tar -xzf phpMyAdmin-5.1.0-all-languages.tar.gz && \
+    rm -rf phpMyAdmin-5.1.0-all-languages.tar.gz && \
+    mv phpMyAdmin-5.1.0-all-languages phpMyAdmin
+
+RUN wget -c https://ru.wordpress.org/latest-ru_RU.tar.gz && \
+    tar -xzf latest-ru_RU.tar.gz && \
+    rm -rf latest-ru_RU.tar.gz
+
+#   mv phpMyAdmin-5.1.0-all-languages phpMyAdmin
 
 # переместить распакованный phpmyadmin в папку рута на сервере и назвать поприличнее
 #переместить готовый конфиг в предыдущую папку с  php
@@ -28,7 +37,7 @@ RUN wget -c https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-all-l
 
 
 COPY ./srcs/start_serv.sh /tmp/
-#RUN chmod +x /tmp/start_serv.sh
+RUN chmod +x /tmp/start_serv.sh
 
 EXPOSE 80 443
 CMD ["/tmp/start_serv.sh"]
