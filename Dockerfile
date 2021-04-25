@@ -1,12 +1,14 @@
 FROM debian:buster
 
-LABEL maintainer cjettie <cjettie@student.21-school.ru>
+#LABEL maintainer cjettie <cjettie@student.21-school.ru>
+
 RUN apt-get update -y && \
 	apt-get	upgrade -y
 
 RUN apt-get install -y nginx
 RUN apt install mariadb-server -y
-RUN apt-get install php7.3 php-mysql php-fpm php-pdo php-gd php-cli php-mbstring -y
+
+RUN apt-get -y install php7.3 php-mysql php-fpm php-pdo php-gd php-cli php-mbstring
 
 RUN apt-get install -y wget
 RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=tatarstan/L=Kazan/O=school21/OU=7wave/CN=cjettie" -newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
