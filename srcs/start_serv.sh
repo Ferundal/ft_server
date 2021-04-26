@@ -1,7 +1,5 @@
 #!/bin/bash
 
-nginx -g 'daemon off;'
-
 service mysql start
 service php7.3-fpm start
 
@@ -11,4 +9,4 @@ echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'root'@'localhost' WITH GRANT OPTIO
 echo "FLUSH PRIVILEGES;"| mysql -u root --skip-password
 echo "update mysql.user set plugin='' where user='root';"| mysql -u root --skip-password
 
-bash
+nginx -g 'daemon off;'
