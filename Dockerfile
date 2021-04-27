@@ -6,7 +6,20 @@ RUN apt-get update -y && \
 
 RUN apt-get install -y nginx
 RUN apt-get install mariadb-server -y
-RUN apt-get -y install php7.3 php-mysql php-fpm php-pdo php-gd php-cli php-mbstring php-xml
+RUN apt-get -y install php7.3 \
+                        php-mysql \
+                        php-fpm \
+                        #php сокет
+                        php-mbstring \
+                        #для многобайтовых символов (UNICODE)?
+                        php-xml \
+                        #у меня таблицы xml без это не робил
+                        php-gd \
+                        #для изобржений
+                        php-cli \
+                        #интерфейс коммандной строки
+                        php-pdo
+                        #Представляет соединение между PHP и сервером базы данных но чет работает без него
 
 RUN apt-get install -y wget
 RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Tatarstan/L=Kazan/O=school21/OU=7wave/CN=cjettie" -newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
